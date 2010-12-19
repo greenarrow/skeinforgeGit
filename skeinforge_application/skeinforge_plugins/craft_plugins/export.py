@@ -140,7 +140,9 @@ def getReplaced(exportText):
 	replaceText = settings.getFileInAlterationsOrGivenDirectory(os.path.dirname(__file__), 'Replace.csv')
 	lines = archive.getTextLines(replaceText)
 	for line in lines:
-		exportText = getReplacedByLine(exportText, line)
+                splitLine = line.replace('\\n', '\t').split('\t')
+                if len(splitLine) > 1:
+                        exportText = exportText.replace(splitLine[0], '\n'.join(splitLine[1 :]))
 	return exportText
 
 def getReplacedByLine(exportText, line):
@@ -166,7 +168,7 @@ def writeOutput(fileName=''):
 	settings.getReadRepository(repository)
 	startTime = time.time()
 	print('File ' + archive.getSummarizedFileName(fileName) + ' is being chain exported.')
-	suffixFileName = fileName[: fileName.rfind('.')] + '_export.' + repository.fileExtension.value
+	suffixFileName = fileName[: fileName.rfind('.')] + '.' + repository.fileExtension.value
 	gcodeText = gcodec.getGcodeFileText(fileName, '')
 	procedures = skeinforge_craft.getProcedures('export', gcodeText)
 	gcodeText = skeinforge_craft.getChainTextFromProcedures(fileName, procedures[ : - 1 ], gcodeText)

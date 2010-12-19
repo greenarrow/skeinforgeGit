@@ -198,8 +198,8 @@ def writeOutput( fileName, fileNameSuffix, gcodeText = ''):
 	repository = settings.getReadRepository( SkeinlayerRepository() )
 	if repository.activateSkeinlayer.value:
 		gcodeText = archive.getTextIfEmpty( fileNameSuffix, gcodeText )
-		return getWindowAnalyzeFileGivenText( fileNameSuffix, gcodeText, repository )
-
+		window = getWindowAnalyzeFileGivenText( fileNameSuffix, gcodeText, repository )
+		tableau.startMainLoopFromWindow(window)
 
 class SkeinlayerRepository( tableau.TableauRepository ):
 	"A class to handle the skeinlayer settings."
