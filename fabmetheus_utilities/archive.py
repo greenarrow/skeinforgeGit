@@ -256,18 +256,10 @@ def getPythonFileNamesExceptInitRecursively(directoryName=''):
 	pythonFileNamesExceptInitRecursively.sort()
 	return pythonFileNamesExceptInitRecursively
 
-settingsPath = os.path.join(os.path.expanduser('~'), '.skeinforge')
-
 def getSettingsPath(subName=''):
 	'Get the settings directory path, which is the home directory joined with .skeinforge.'
-	global settingsPath
 	return getJoinedPath(os.path.join(os.path.expanduser('~'), '.skeinforge'), subName)
 
-def setSettingsPath(path):
-	'Set the base settings directory path.'
-	global settingsPath
-	settingsPath = path
-                        
 def getSummarizedFileName(fileName):
 	'Get the fileName basename if the file is in the current working directory, otherwise return the original full name.'
 	if os.getcwd() == os.path.dirname(fileName):
